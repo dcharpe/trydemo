@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<head>
+
+	<script>
+
+
+	</script>
+</head>
+<body>
+	<form>
+		<div class="prog"></div>
+		<input type="checkbox" name="progress-tasks" id="progress-task1" value="Task 1" checked required>
+		<label for="progress-task1" class="progress-task">Quarter 1</label>
+		<input type="checkbox" name="progress-tasks" id="progress-task2" value="Task 2" checked required>
+		<label for="progress-task2" class="progress-task">Quarter 2</label>
+		<input type="checkbox" name="progress-tasks" id="progress-task3" value="Task 3" required>
+		<label for="progress-task3" class="progress-task">Quarter 3</label>
+		<input type="checkbox" name="progress-tasks" id="progress-task4" value="Task 4" required>
+		<label for="progress-task4" class="progress-task">Quarter 4</label>
+		<input type="checkbox" name="progress-tasks" id="progress-task5" value="Task 5" required>
+		<label for="progress-task5" class="progress-task">Task 5</label>
+		<input type="checkbox" name="progress-tasks" id="progress-task6" value="Task 6" required>
+		<label for="progress-task6" class="progress-task">Task 6</label>
+		<label for="progress-tasks-percentage" class="progress-tasks-completed"><span>0</span><sup>%</sup> Completed</label>
+		<progress id="progress-tasks-percentage" name="progress-tasks-percentage" min="0" max="100"></progress>
+	</form>
+</body>
+<script>
+	// JS updates <progress> element and .prog pie radius
+	var checkbox = document.getElementsByName('progress-tasks'),
+		checkboxLen = checkbox.length,
+		checkboxChecked = [],
+		i,
+		meter = document.getElementsByName('progress-tasks-percentage')[0],
+		meterLabel = document.querySelector('.progress-tasks-completed'),
+		meterCurrVal,
+		progRadius = document.querySelector('.prog'),
+		progRadiusPie,
+		deg;
+
+	function updateProgressVal() {
+		meterCurrVal = Math.floor((checkboxChecked.length / checkboxLen) * 100);
+		meter.setAttribute('value', meterCurrVal);
+		meterLabel.getElementsByTagName('span')[0].innerHTML = meterCurrVal;
+
+		progRadius.innerHTML = '<div class="percent"></div><div id="slice"' + (meterCurrVal > 50 ? ' class="gt50"' : '') + '><div class="pie"></div>' + (meterCurrVal > 50 ? '<div class="pie fill"></div>' : '') + '</div>';
+
+		deg = (360 / 100) * meterCurrVal;
+		progRadiusPie = document.querySelector('#slice .pie');
+		progRadiusPie.style.mozTransform = 'rotate(' + deg + 'deg)';
+		progRadiusPie.style.webkitTransform = 'rotate(' + deg + 'deg)';
+		progRadiusPie.style.oTransform = 'rotate(' + deg + 'deg)';
+		progRadiusPie.style.msTransform = 'rotate(' + deg + 'deg)';
+		progRadiusPie.style.transform = 'rotate(' + deg + 'deg)';
+	}
+
+	for (i = 0; i < checkboxLen; i++) {
+		if (checkbox[i].checked) {
+			checkboxChecked.push(checkbox[i]);
+		}
+
+		checkbox[i].onchange = function () {
+			(this.checked) ? checkboxChecked.push(this) : checkboxChecked.splice(checkboxChecked.indexOf(this), 1);
+			updateProgressVal();
+		}
+	}
+
+	updateProgressVal();
+</script>

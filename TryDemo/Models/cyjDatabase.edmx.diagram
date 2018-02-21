@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ad720d22e07b4253aaea00282a923702" Name="Diagram1">
+        <EntityTypeShape EntityType="masterwizardModel.AGOAL" Width="1.5" PointX="9.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterwizardModel.CATEGORY" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterwizardModel.MASTER" Width="1.5" PointX="21" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterwizardModel.POST" Width="1.5" PointX="2" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterwizardModel.QfourGOAL" Width="1.5" PointX="18.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterwizardModel.QoneGOAL" Width="1.5" PointX="12" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterwizardModel.QthreeGOAL" Width="1.5" PointX="16.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterwizardModel.QtwoGOAL" Width="1.5" PointX="14.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterwizardModel.SUBCATEGORY" Width="1.5" PointX="7.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterwizardModel.TEAM" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterwizardModel.WSTREAM" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <AssociationConnector Association="masterwizardModel.FK__AGOAL__subcategI__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__MASTER__agoalID__1332DBDC" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__QoneGOAL__agoalI__03F0984C" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__CATEGORY__wstrea__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__MASTER__categID__114A936A" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__SUBCATEGO__categ__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__MASTER__qfourgoa__17036CC0" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__MASTER__qonegoal__14270015" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__MASTER__qthreego__160F4887" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__MASTER__qtwogoal__151B244E" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__MASTER__subcateg__123EB7A3" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__MASTER__teamID__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__MASTER__wstreamI__10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__QfourGOAL__qthre__0C85DE4D" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__QtwoGOAL__qonego__06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__QthreeGOA__qtwog__09A971A2" ManuallyRouted="false" />
+        <AssociationConnector Association="masterwizardModel.FK__WSTREAM__teamID__787EE5A0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

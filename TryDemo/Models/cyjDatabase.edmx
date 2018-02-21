@@ -1,0 +1,960 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="masterwizardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AGOAL">
+          <Key>
+            <PropertyRef Name="agoalID" />
+          </Key>
+          <Property Name="agoalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="agoalValue" Type="int" />
+          <Property Name="subcategID" Type="int" />
+        </EntityType>
+        <EntityType Name="CATEGORY">
+          <Key>
+            <PropertyRef Name="categID" />
+          </Key>
+          <Property Name="categID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categName" Type="varchar" MaxLength="255" />
+          <Property Name="wstreamID" Type="int" />
+        </EntityType>
+        <EntityType Name="MASTER">
+          <Key>
+            <PropertyRef Name="masterID" />
+          </Key>
+          <Property Name="masterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="teamID" Type="int" />
+          <Property Name="wstreamID" Type="int" />
+          <Property Name="categID" Type="int" />
+          <Property Name="subcategID" Type="int" />
+          <Property Name="agoalID" Type="int" />
+          <Property Name="qonegoalID" Type="int" />
+          <Property Name="qtwogoalID" Type="int" />
+          <Property Name="qthreegoalID" Type="int" />
+          <Property Name="qfourgoalID" Type="int" />
+        </EntityType>
+        <EntityType Name="POST">
+          <Key>
+            <PropertyRef Name="postID" />
+          </Key>
+          <Property Name="postID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="postTitle" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="postContent" Type="varchar" MaxLength="255" />
+          <Property Name="createTime" Type="datetime" />
+          <Property Name="updateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="QfourGOAL">
+          <Key>
+            <PropertyRef Name="qfourgoalID" />
+          </Key>
+          <Property Name="qfourgoalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qfourgoalValue" Type="int" />
+          <Property Name="qthreegoalID" Type="int" />
+        </EntityType>
+        <EntityType Name="QoneGOAL">
+          <Key>
+            <PropertyRef Name="qonegoalID" />
+          </Key>
+          <Property Name="qonegoalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qonegoalValue" Type="int" />
+          <Property Name="agoalID" Type="int" />
+        </EntityType>
+        <EntityType Name="QthreeGOAL">
+          <Key>
+            <PropertyRef Name="qthreegoalID" />
+          </Key>
+          <Property Name="qthreegoalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qthreegoalValue" Type="int" />
+          <Property Name="qtwogoalID" Type="int" />
+        </EntityType>
+        <EntityType Name="QtwoGOAL">
+          <Key>
+            <PropertyRef Name="qtwogoalID" />
+          </Key>
+          <Property Name="qtwogoalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qtwogoalValue" Type="int" />
+          <Property Name="qonegoalID" Type="int" />
+        </EntityType>
+        <EntityType Name="SUBCATEGORY">
+          <Key>
+            <PropertyRef Name="subcategID" />
+          </Key>
+          <Property Name="subcategID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subcategName" Type="varchar" MaxLength="255" />
+          <Property Name="categID" Type="int" />
+        </EntityType>
+        <EntityType Name="TEAM">
+          <Key>
+            <PropertyRef Name="teamID" />
+          </Key>
+          <Property Name="teamID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="teamName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="WSTREAM">
+          <Key>
+            <PropertyRef Name="wstreamID" />
+          </Key>
+          <Property Name="wstreamID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="wstreamName" Type="varchar" MaxLength="255" />
+          <Property Name="teamID" Type="int" />
+        </EntityType>
+        <Association Name="FK__AGOAL__subcategI__01142BA1">
+          <End Role="SUBCATEGORY" Type="Self.SUBCATEGORY" Multiplicity="0..1" />
+          <End Role="AGOAL" Type="Self.AGOAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBCATEGORY">
+              <PropertyRef Name="subcategID" />
+            </Principal>
+            <Dependent Role="AGOAL">
+              <PropertyRef Name="subcategID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CATEGORY__wstrea__7B5B524B">
+          <End Role="WSTREAM" Type="Self.WSTREAM" Multiplicity="0..1" />
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WSTREAM">
+              <PropertyRef Name="wstreamID" />
+            </Principal>
+            <Dependent Role="CATEGORY">
+              <PropertyRef Name="wstreamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__agoalID__1332DBDC">
+          <End Role="AGOAL" Type="Self.AGOAL" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGOAL">
+              <PropertyRef Name="agoalID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="agoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__categID__114A936A">
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORY">
+              <PropertyRef Name="categID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="categID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__qfourgoa__17036CC0">
+          <End Role="QfourGOAL" Type="Self.QfourGOAL" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QfourGOAL">
+              <PropertyRef Name="qfourgoalID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="qfourgoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__qonegoal__14270015">
+          <End Role="QoneGOAL" Type="Self.QoneGOAL" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QoneGOAL">
+              <PropertyRef Name="qonegoalID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="qonegoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__qthreego__160F4887">
+          <End Role="QthreeGOAL" Type="Self.QthreeGOAL" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QthreeGOAL">
+              <PropertyRef Name="qthreegoalID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="qthreegoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__qtwogoal__151B244E">
+          <End Role="QtwoGOAL" Type="Self.QtwoGOAL" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QtwoGOAL">
+              <PropertyRef Name="qtwogoalID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="qtwogoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__subcateg__123EB7A3">
+          <End Role="SUBCATEGORY" Type="Self.SUBCATEGORY" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBCATEGORY">
+              <PropertyRef Name="subcategID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="subcategID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__teamID__0F624AF8">
+          <End Role="TEAM" Type="Self.TEAM" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEAM">
+              <PropertyRef Name="teamID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="teamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__wstreamI__10566F31">
+          <End Role="WSTREAM" Type="Self.WSTREAM" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WSTREAM">
+              <PropertyRef Name="wstreamID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="wstreamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QfourGOAL__qthre__0C85DE4D">
+          <End Role="QthreeGOAL" Type="Self.QthreeGOAL" Multiplicity="0..1" />
+          <End Role="QfourGOAL" Type="Self.QfourGOAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QthreeGOAL">
+              <PropertyRef Name="qthreegoalID" />
+            </Principal>
+            <Dependent Role="QfourGOAL">
+              <PropertyRef Name="qthreegoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QoneGOAL__agoalI__03F0984C">
+          <End Role="AGOAL" Type="Self.AGOAL" Multiplicity="0..1" />
+          <End Role="QoneGOAL" Type="Self.QoneGOAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGOAL">
+              <PropertyRef Name="agoalID" />
+            </Principal>
+            <Dependent Role="QoneGOAL">
+              <PropertyRef Name="agoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QthreeGOA__qtwog__09A971A2">
+          <End Role="QtwoGOAL" Type="Self.QtwoGOAL" Multiplicity="0..1" />
+          <End Role="QthreeGOAL" Type="Self.QthreeGOAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QtwoGOAL">
+              <PropertyRef Name="qtwogoalID" />
+            </Principal>
+            <Dependent Role="QthreeGOAL">
+              <PropertyRef Name="qtwogoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QtwoGOAL__qonego__06CD04F7">
+          <End Role="QoneGOAL" Type="Self.QoneGOAL" Multiplicity="0..1" />
+          <End Role="QtwoGOAL" Type="Self.QtwoGOAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QoneGOAL">
+              <PropertyRef Name="qonegoalID" />
+            </Principal>
+            <Dependent Role="QtwoGOAL">
+              <PropertyRef Name="qonegoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SUBCATEGO__categ__7E37BEF6">
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="0..1" />
+          <End Role="SUBCATEGORY" Type="Self.SUBCATEGORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORY">
+              <PropertyRef Name="categID" />
+            </Principal>
+            <Dependent Role="SUBCATEGORY">
+              <PropertyRef Name="categID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WSTREAM__teamID__787EE5A0">
+          <End Role="TEAM" Type="Self.TEAM" Multiplicity="0..1" />
+          <End Role="WSTREAM" Type="Self.WSTREAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEAM">
+              <PropertyRef Name="teamID" />
+            </Principal>
+            <Dependent Role="WSTREAM">
+              <PropertyRef Name="teamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="InsertInto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="teamName" Type="varchar" Mode="In" />
+          <Parameter Name="wstreamName" Type="varchar" Mode="In" />
+          <Parameter Name="categName" Type="varchar" Mode="In" />
+          <Parameter Name="subcategName" Type="varchar" Mode="In" />
+          <Parameter Name="agoalValue" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="masterwizardModelStoreContainer">
+          <EntitySet Name="AGOAL" EntityType="Self.AGOAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MASTER" EntityType="Self.MASTER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="POST" EntityType="Self.POST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QfourGOAL" EntityType="Self.QfourGOAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QoneGOAL" EntityType="Self.QoneGOAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QthreeGOAL" EntityType="Self.QthreeGOAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QtwoGOAL" EntityType="Self.QtwoGOAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUBCATEGORY" EntityType="Self.SUBCATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TEAM" EntityType="Self.TEAM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WSTREAM" EntityType="Self.WSTREAM" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AGOAL__subcategI__01142BA1" Association="Self.FK__AGOAL__subcategI__01142BA1">
+            <End Role="SUBCATEGORY" EntitySet="SUBCATEGORY" />
+            <End Role="AGOAL" EntitySet="AGOAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CATEGORY__wstrea__7B5B524B" Association="Self.FK__CATEGORY__wstrea__7B5B524B">
+            <End Role="WSTREAM" EntitySet="WSTREAM" />
+            <End Role="CATEGORY" EntitySet="CATEGORY" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__agoalID__1332DBDC" Association="Self.FK__MASTER__agoalID__1332DBDC">
+            <End Role="AGOAL" EntitySet="AGOAL" />
+            <End Role="MASTER" EntitySet="MASTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__categID__114A936A" Association="Self.FK__MASTER__categID__114A936A">
+            <End Role="CATEGORY" EntitySet="CATEGORY" />
+            <End Role="MASTER" EntitySet="MASTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__qfourgoa__17036CC0" Association="Self.FK__MASTER__qfourgoa__17036CC0">
+            <End Role="QfourGOAL" EntitySet="QfourGOAL" />
+            <End Role="MASTER" EntitySet="MASTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__qonegoal__14270015" Association="Self.FK__MASTER__qonegoal__14270015">
+            <End Role="QoneGOAL" EntitySet="QoneGOAL" />
+            <End Role="MASTER" EntitySet="MASTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__qthreego__160F4887" Association="Self.FK__MASTER__qthreego__160F4887">
+            <End Role="QthreeGOAL" EntitySet="QthreeGOAL" />
+            <End Role="MASTER" EntitySet="MASTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__qtwogoal__151B244E" Association="Self.FK__MASTER__qtwogoal__151B244E">
+            <End Role="QtwoGOAL" EntitySet="QtwoGOAL" />
+            <End Role="MASTER" EntitySet="MASTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__subcateg__123EB7A3" Association="Self.FK__MASTER__subcateg__123EB7A3">
+            <End Role="SUBCATEGORY" EntitySet="SUBCATEGORY" />
+            <End Role="MASTER" EntitySet="MASTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__teamID__0F624AF8" Association="Self.FK__MASTER__teamID__0F624AF8">
+            <End Role="TEAM" EntitySet="TEAM" />
+            <End Role="MASTER" EntitySet="MASTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__wstreamI__10566F31" Association="Self.FK__MASTER__wstreamI__10566F31">
+            <End Role="WSTREAM" EntitySet="WSTREAM" />
+            <End Role="MASTER" EntitySet="MASTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QfourGOAL__qthre__0C85DE4D" Association="Self.FK__QfourGOAL__qthre__0C85DE4D">
+            <End Role="QthreeGOAL" EntitySet="QthreeGOAL" />
+            <End Role="QfourGOAL" EntitySet="QfourGOAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QoneGOAL__agoalI__03F0984C" Association="Self.FK__QoneGOAL__agoalI__03F0984C">
+            <End Role="AGOAL" EntitySet="AGOAL" />
+            <End Role="QoneGOAL" EntitySet="QoneGOAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QthreeGOA__qtwog__09A971A2" Association="Self.FK__QthreeGOA__qtwog__09A971A2">
+            <End Role="QtwoGOAL" EntitySet="QtwoGOAL" />
+            <End Role="QthreeGOAL" EntitySet="QthreeGOAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QtwoGOAL__qonego__06CD04F7" Association="Self.FK__QtwoGOAL__qonego__06CD04F7">
+            <End Role="QoneGOAL" EntitySet="QoneGOAL" />
+            <End Role="QtwoGOAL" EntitySet="QtwoGOAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SUBCATEGO__categ__7E37BEF6" Association="Self.FK__SUBCATEGO__categ__7E37BEF6">
+            <End Role="CATEGORY" EntitySet="CATEGORY" />
+            <End Role="SUBCATEGORY" EntitySet="SUBCATEGORY" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WSTREAM__teamID__787EE5A0" Association="Self.FK__WSTREAM__teamID__787EE5A0">
+            <End Role="TEAM" EntitySet="TEAM" />
+            <End Role="WSTREAM" EntitySet="WSTREAM" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="masterwizardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AGOAL">
+          <Key>
+            <PropertyRef Name="agoalID" />
+          </Key>
+          <Property Name="agoalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="agoalValue" Type="Int32" />
+          <Property Name="subcategID" Type="Int32" />
+          <NavigationProperty Name="SUBCATEGORY" Relationship="Self.FK__AGOAL__subcategI__01142BA1" FromRole="AGOAL" ToRole="SUBCATEGORY" />
+          <NavigationProperty Name="MASTERs" Relationship="Self.FK__MASTER__agoalID__1332DBDC" FromRole="AGOAL" ToRole="MASTER" />
+          <NavigationProperty Name="QoneGOALs" Relationship="Self.FK__QoneGOAL__agoalI__03F0984C" FromRole="AGOAL" ToRole="QoneGOAL" />
+        </EntityType>
+        <EntityType Name="CATEGORY">
+          <Key>
+            <PropertyRef Name="categID" />
+          </Key>
+          <Property Name="categID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="wstreamID" Type="Int32" />
+          <NavigationProperty Name="WSTREAM" Relationship="Self.FK__CATEGORY__wstrea__7B5B524B" FromRole="CATEGORY" ToRole="WSTREAM" />
+          <NavigationProperty Name="MASTERs" Relationship="Self.FK__MASTER__categID__114A936A" FromRole="CATEGORY" ToRole="MASTER" />
+          <NavigationProperty Name="SUBCATEGORies" Relationship="Self.FK__SUBCATEGO__categ__7E37BEF6" FromRole="CATEGORY" ToRole="SUBCATEGORY" />
+        </EntityType>
+        <EntityType Name="MASTER">
+          <Key>
+            <PropertyRef Name="masterID" />
+          </Key>
+          <Property Name="masterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="teamID" Type="Int32" />
+          <Property Name="wstreamID" Type="Int32" />
+          <Property Name="categID" Type="Int32" />
+          <Property Name="subcategID" Type="Int32" />
+          <Property Name="agoalID" Type="Int32" />
+          <Property Name="qonegoalID" Type="Int32" />
+          <Property Name="qtwogoalID" Type="Int32" />
+          <Property Name="qthreegoalID" Type="Int32" />
+          <Property Name="qfourgoalID" Type="Int32" />
+          <NavigationProperty Name="AGOAL" Relationship="Self.FK__MASTER__agoalID__1332DBDC" FromRole="MASTER" ToRole="AGOAL" />
+          <NavigationProperty Name="CATEGORY" Relationship="Self.FK__MASTER__categID__114A936A" FromRole="MASTER" ToRole="CATEGORY" />
+          <NavigationProperty Name="QfourGOAL" Relationship="Self.FK__MASTER__qfourgoa__17036CC0" FromRole="MASTER" ToRole="QfourGOAL" />
+          <NavigationProperty Name="QoneGOAL" Relationship="Self.FK__MASTER__qonegoal__14270015" FromRole="MASTER" ToRole="QoneGOAL" />
+          <NavigationProperty Name="QthreeGOAL" Relationship="Self.FK__MASTER__qthreego__160F4887" FromRole="MASTER" ToRole="QthreeGOAL" />
+          <NavigationProperty Name="QtwoGOAL" Relationship="Self.FK__MASTER__qtwogoal__151B244E" FromRole="MASTER" ToRole="QtwoGOAL" />
+          <NavigationProperty Name="SUBCATEGORY" Relationship="Self.FK__MASTER__subcateg__123EB7A3" FromRole="MASTER" ToRole="SUBCATEGORY" />
+          <NavigationProperty Name="TEAM" Relationship="Self.FK__MASTER__teamID__0F624AF8" FromRole="MASTER" ToRole="TEAM" />
+          <NavigationProperty Name="WSTREAM" Relationship="Self.FK__MASTER__wstreamI__10566F31" FromRole="MASTER" ToRole="WSTREAM" />
+        </EntityType>
+        <EntityType Name="POST">
+          <Key>
+            <PropertyRef Name="postID" />
+          </Key>
+          <Property Name="postID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="postTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="postContent" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createTime" Type="DateTime" Precision="3" />
+          <Property Name="updateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="QfourGOAL">
+          <Key>
+            <PropertyRef Name="qfourgoalID" />
+          </Key>
+          <Property Name="qfourgoalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qfourgoalValue" Type="Int32" />
+          <Property Name="qthreegoalID" Type="Int32" />
+          <NavigationProperty Name="MASTERs" Relationship="Self.FK__MASTER__qfourgoa__17036CC0" FromRole="QfourGOAL" ToRole="MASTER" />
+          <NavigationProperty Name="QthreeGOAL" Relationship="Self.FK__QfourGOAL__qthre__0C85DE4D" FromRole="QfourGOAL" ToRole="QthreeGOAL" />
+        </EntityType>
+        <EntityType Name="QoneGOAL">
+          <Key>
+            <PropertyRef Name="qonegoalID" />
+          </Key>
+          <Property Name="qonegoalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qonegoalValue" Type="Int32" />
+          <Property Name="agoalID" Type="Int32" />
+          <NavigationProperty Name="AGOAL" Relationship="Self.FK__QoneGOAL__agoalI__03F0984C" FromRole="QoneGOAL" ToRole="AGOAL" />
+          <NavigationProperty Name="MASTERs" Relationship="Self.FK__MASTER__qonegoal__14270015" FromRole="QoneGOAL" ToRole="MASTER" />
+          <NavigationProperty Name="QtwoGOALs" Relationship="Self.FK__QtwoGOAL__qonego__06CD04F7" FromRole="QoneGOAL" ToRole="QtwoGOAL" />
+        </EntityType>
+        <EntityType Name="QthreeGOAL">
+          <Key>
+            <PropertyRef Name="qthreegoalID" />
+          </Key>
+          <Property Name="qthreegoalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qthreegoalValue" Type="Int32" />
+          <Property Name="qtwogoalID" Type="Int32" />
+          <NavigationProperty Name="MASTERs" Relationship="Self.FK__MASTER__qthreego__160F4887" FromRole="QthreeGOAL" ToRole="MASTER" />
+          <NavigationProperty Name="QfourGOALs" Relationship="Self.FK__QfourGOAL__qthre__0C85DE4D" FromRole="QthreeGOAL" ToRole="QfourGOAL" />
+          <NavigationProperty Name="QtwoGOAL" Relationship="Self.FK__QthreeGOA__qtwog__09A971A2" FromRole="QthreeGOAL" ToRole="QtwoGOAL" />
+        </EntityType>
+        <EntityType Name="QtwoGOAL">
+          <Key>
+            <PropertyRef Name="qtwogoalID" />
+          </Key>
+          <Property Name="qtwogoalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qtwogoalValue" Type="Int32" />
+          <Property Name="qonegoalID" Type="Int32" />
+          <NavigationProperty Name="MASTERs" Relationship="Self.FK__MASTER__qtwogoal__151B244E" FromRole="QtwoGOAL" ToRole="MASTER" />
+          <NavigationProperty Name="QoneGOAL" Relationship="Self.FK__QtwoGOAL__qonego__06CD04F7" FromRole="QtwoGOAL" ToRole="QoneGOAL" />
+          <NavigationProperty Name="QthreeGOALs" Relationship="Self.FK__QthreeGOA__qtwog__09A971A2" FromRole="QtwoGOAL" ToRole="QthreeGOAL" />
+        </EntityType>
+        <EntityType Name="SUBCATEGORY">
+          <Key>
+            <PropertyRef Name="subcategID" />
+          </Key>
+          <Property Name="subcategID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subcategName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="categID" Type="Int32" />
+          <NavigationProperty Name="AGOALs" Relationship="Self.FK__AGOAL__subcategI__01142BA1" FromRole="SUBCATEGORY" ToRole="AGOAL" />
+          <NavigationProperty Name="CATEGORY" Relationship="Self.FK__SUBCATEGO__categ__7E37BEF6" FromRole="SUBCATEGORY" ToRole="CATEGORY" />
+          <NavigationProperty Name="MASTERs" Relationship="Self.FK__MASTER__subcateg__123EB7A3" FromRole="SUBCATEGORY" ToRole="MASTER" />
+        </EntityType>
+        <EntityType Name="TEAM">
+          <Key>
+            <PropertyRef Name="teamID" />
+          </Key>
+          <Property Name="teamID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="teamName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MASTERs" Relationship="Self.FK__MASTER__teamID__0F624AF8" FromRole="TEAM" ToRole="MASTER" />
+          <NavigationProperty Name="WSTREAMs" Relationship="Self.FK__WSTREAM__teamID__787EE5A0" FromRole="TEAM" ToRole="WSTREAM" />
+        </EntityType>
+        <EntityType Name="WSTREAM">
+          <Key>
+            <PropertyRef Name="wstreamID" />
+          </Key>
+          <Property Name="wstreamID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wstreamName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="teamID" Type="Int32" />
+          <NavigationProperty Name="CATEGORies" Relationship="Self.FK__CATEGORY__wstrea__7B5B524B" FromRole="WSTREAM" ToRole="CATEGORY" />
+          <NavigationProperty Name="MASTERs" Relationship="Self.FK__MASTER__wstreamI__10566F31" FromRole="WSTREAM" ToRole="MASTER" />
+          <NavigationProperty Name="TEAM" Relationship="Self.FK__WSTREAM__teamID__787EE5A0" FromRole="WSTREAM" ToRole="TEAM" />
+        </EntityType>
+        <Association Name="FK__AGOAL__subcategI__01142BA1">
+          <End Role="SUBCATEGORY" Type="Self.SUBCATEGORY" Multiplicity="0..1" />
+          <End Role="AGOAL" Type="Self.AGOAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBCATEGORY">
+              <PropertyRef Name="subcategID" />
+            </Principal>
+            <Dependent Role="AGOAL">
+              <PropertyRef Name="subcategID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__agoalID__1332DBDC">
+          <End Role="AGOAL" Type="Self.AGOAL" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGOAL">
+              <PropertyRef Name="agoalID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="agoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QoneGOAL__agoalI__03F0984C">
+          <End Role="AGOAL" Type="Self.AGOAL" Multiplicity="0..1" />
+          <End Role="QoneGOAL" Type="Self.QoneGOAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AGOAL">
+              <PropertyRef Name="agoalID" />
+            </Principal>
+            <Dependent Role="QoneGOAL">
+              <PropertyRef Name="agoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CATEGORY__wstrea__7B5B524B">
+          <End Role="WSTREAM" Type="Self.WSTREAM" Multiplicity="0..1" />
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WSTREAM">
+              <PropertyRef Name="wstreamID" />
+            </Principal>
+            <Dependent Role="CATEGORY">
+              <PropertyRef Name="wstreamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__categID__114A936A">
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORY">
+              <PropertyRef Name="categID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="categID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SUBCATEGO__categ__7E37BEF6">
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="0..1" />
+          <End Role="SUBCATEGORY" Type="Self.SUBCATEGORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORY">
+              <PropertyRef Name="categID" />
+            </Principal>
+            <Dependent Role="SUBCATEGORY">
+              <PropertyRef Name="categID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__qfourgoa__17036CC0">
+          <End Role="QfourGOAL" Type="Self.QfourGOAL" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QfourGOAL">
+              <PropertyRef Name="qfourgoalID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="qfourgoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__qonegoal__14270015">
+          <End Role="QoneGOAL" Type="Self.QoneGOAL" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QoneGOAL">
+              <PropertyRef Name="qonegoalID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="qonegoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__qthreego__160F4887">
+          <End Role="QthreeGOAL" Type="Self.QthreeGOAL" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QthreeGOAL">
+              <PropertyRef Name="qthreegoalID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="qthreegoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__qtwogoal__151B244E">
+          <End Role="QtwoGOAL" Type="Self.QtwoGOAL" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QtwoGOAL">
+              <PropertyRef Name="qtwogoalID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="qtwogoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__subcateg__123EB7A3">
+          <End Role="SUBCATEGORY" Type="Self.SUBCATEGORY" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBCATEGORY">
+              <PropertyRef Name="subcategID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="subcategID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__teamID__0F624AF8">
+          <End Role="TEAM" Type="Self.TEAM" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEAM">
+              <PropertyRef Name="teamID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="teamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MASTER__wstreamI__10566F31">
+          <End Role="WSTREAM" Type="Self.WSTREAM" Multiplicity="0..1" />
+          <End Role="MASTER" Type="Self.MASTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WSTREAM">
+              <PropertyRef Name="wstreamID" />
+            </Principal>
+            <Dependent Role="MASTER">
+              <PropertyRef Name="wstreamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QfourGOAL__qthre__0C85DE4D">
+          <End Role="QthreeGOAL" Type="Self.QthreeGOAL" Multiplicity="0..1" />
+          <End Role="QfourGOAL" Type="Self.QfourGOAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QthreeGOAL">
+              <PropertyRef Name="qthreegoalID" />
+            </Principal>
+            <Dependent Role="QfourGOAL">
+              <PropertyRef Name="qthreegoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QtwoGOAL__qonego__06CD04F7">
+          <End Role="QoneGOAL" Type="Self.QoneGOAL" Multiplicity="0..1" />
+          <End Role="QtwoGOAL" Type="Self.QtwoGOAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QoneGOAL">
+              <PropertyRef Name="qonegoalID" />
+            </Principal>
+            <Dependent Role="QtwoGOAL">
+              <PropertyRef Name="qonegoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QthreeGOA__qtwog__09A971A2">
+          <End Role="QtwoGOAL" Type="Self.QtwoGOAL" Multiplicity="0..1" />
+          <End Role="QthreeGOAL" Type="Self.QthreeGOAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QtwoGOAL">
+              <PropertyRef Name="qtwogoalID" />
+            </Principal>
+            <Dependent Role="QthreeGOAL">
+              <PropertyRef Name="qtwogoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WSTREAM__teamID__787EE5A0">
+          <End Role="TEAM" Type="Self.TEAM" Multiplicity="0..1" />
+          <End Role="WSTREAM" Type="Self.WSTREAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEAM">
+              <PropertyRef Name="teamID" />
+            </Principal>
+            <Dependent Role="WSTREAM">
+              <PropertyRef Name="teamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mastermodelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AGOALs" EntityType="Self.AGOAL" />
+          <EntitySet Name="CATEGORies" EntityType="Self.CATEGORY" />
+          <EntitySet Name="MASTERs" EntityType="Self.MASTER" />
+          <EntitySet Name="POSTs" EntityType="Self.POST" />
+          <EntitySet Name="QfourGOALs" EntityType="Self.QfourGOAL" />
+          <EntitySet Name="QoneGOALs" EntityType="Self.QoneGOAL" />
+          <EntitySet Name="QthreeGOALs" EntityType="Self.QthreeGOAL" />
+          <EntitySet Name="QtwoGOALs" EntityType="Self.QtwoGOAL" />
+          <EntitySet Name="SUBCATEGORies" EntityType="Self.SUBCATEGORY" />
+          <EntitySet Name="TEAMs" EntityType="Self.TEAM" />
+          <EntitySet Name="WSTREAMs" EntityType="Self.WSTREAM" />
+          <AssociationSet Name="FK__AGOAL__subcategI__01142BA1" Association="Self.FK__AGOAL__subcategI__01142BA1">
+            <End Role="SUBCATEGORY" EntitySet="SUBCATEGORies" />
+            <End Role="AGOAL" EntitySet="AGOALs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__agoalID__1332DBDC" Association="Self.FK__MASTER__agoalID__1332DBDC">
+            <End Role="AGOAL" EntitySet="AGOALs" />
+            <End Role="MASTER" EntitySet="MASTERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QoneGOAL__agoalI__03F0984C" Association="Self.FK__QoneGOAL__agoalI__03F0984C">
+            <End Role="AGOAL" EntitySet="AGOALs" />
+            <End Role="QoneGOAL" EntitySet="QoneGOALs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CATEGORY__wstrea__7B5B524B" Association="Self.FK__CATEGORY__wstrea__7B5B524B">
+            <End Role="WSTREAM" EntitySet="WSTREAMs" />
+            <End Role="CATEGORY" EntitySet="CATEGORies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__categID__114A936A" Association="Self.FK__MASTER__categID__114A936A">
+            <End Role="CATEGORY" EntitySet="CATEGORies" />
+            <End Role="MASTER" EntitySet="MASTERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SUBCATEGO__categ__7E37BEF6" Association="Self.FK__SUBCATEGO__categ__7E37BEF6">
+            <End Role="CATEGORY" EntitySet="CATEGORies" />
+            <End Role="SUBCATEGORY" EntitySet="SUBCATEGORies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__qfourgoa__17036CC0" Association="Self.FK__MASTER__qfourgoa__17036CC0">
+            <End Role="QfourGOAL" EntitySet="QfourGOALs" />
+            <End Role="MASTER" EntitySet="MASTERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__qonegoal__14270015" Association="Self.FK__MASTER__qonegoal__14270015">
+            <End Role="QoneGOAL" EntitySet="QoneGOALs" />
+            <End Role="MASTER" EntitySet="MASTERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__qthreego__160F4887" Association="Self.FK__MASTER__qthreego__160F4887">
+            <End Role="QthreeGOAL" EntitySet="QthreeGOALs" />
+            <End Role="MASTER" EntitySet="MASTERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__qtwogoal__151B244E" Association="Self.FK__MASTER__qtwogoal__151B244E">
+            <End Role="QtwoGOAL" EntitySet="QtwoGOALs" />
+            <End Role="MASTER" EntitySet="MASTERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__subcateg__123EB7A3" Association="Self.FK__MASTER__subcateg__123EB7A3">
+            <End Role="SUBCATEGORY" EntitySet="SUBCATEGORies" />
+            <End Role="MASTER" EntitySet="MASTERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__teamID__0F624AF8" Association="Self.FK__MASTER__teamID__0F624AF8">
+            <End Role="TEAM" EntitySet="TEAMs" />
+            <End Role="MASTER" EntitySet="MASTERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MASTER__wstreamI__10566F31" Association="Self.FK__MASTER__wstreamI__10566F31">
+            <End Role="WSTREAM" EntitySet="WSTREAMs" />
+            <End Role="MASTER" EntitySet="MASTERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QfourGOAL__qthre__0C85DE4D" Association="Self.FK__QfourGOAL__qthre__0C85DE4D">
+            <End Role="QthreeGOAL" EntitySet="QthreeGOALs" />
+            <End Role="QfourGOAL" EntitySet="QfourGOALs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QtwoGOAL__qonego__06CD04F7" Association="Self.FK__QtwoGOAL__qonego__06CD04F7">
+            <End Role="QoneGOAL" EntitySet="QoneGOALs" />
+            <End Role="QtwoGOAL" EntitySet="QtwoGOALs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QthreeGOA__qtwog__09A971A2" Association="Self.FK__QthreeGOA__qtwog__09A971A2">
+            <End Role="QtwoGOAL" EntitySet="QtwoGOALs" />
+            <End Role="QthreeGOAL" EntitySet="QthreeGOALs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WSTREAM__teamID__787EE5A0" Association="Self.FK__WSTREAM__teamID__787EE5A0">
+            <End Role="TEAM" EntitySet="TEAMs" />
+            <End Role="WSTREAM" EntitySet="WSTREAMs" />
+          </AssociationSet>
+          <FunctionImport Name="InsertInto">
+            <Parameter Name="teamName" Mode="In" Type="String" />
+            <Parameter Name="wstreamName" Mode="In" Type="String" />
+            <Parameter Name="categName" Mode="In" Type="String" />
+            <Parameter Name="subcategName" Mode="In" Type="String" />
+            <Parameter Name="agoalValue" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="masterwizardModelStoreContainer" CdmEntityContainer="mastermodelEntities">
+          <EntitySetMapping Name="AGOALs">
+            <EntityTypeMapping TypeName="masterwizardModel.AGOAL">
+              <MappingFragment StoreEntitySet="AGOAL">
+                <ScalarProperty Name="agoalID" ColumnName="agoalID" />
+                <ScalarProperty Name="agoalValue" ColumnName="agoalValue" />
+                <ScalarProperty Name="subcategID" ColumnName="subcategID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORies">
+            <EntityTypeMapping TypeName="masterwizardModel.CATEGORY">
+              <MappingFragment StoreEntitySet="CATEGORY">
+                <ScalarProperty Name="categID" ColumnName="categID" />
+                <ScalarProperty Name="categName" ColumnName="categName" />
+                <ScalarProperty Name="wstreamID" ColumnName="wstreamID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MASTERs">
+            <EntityTypeMapping TypeName="masterwizardModel.MASTER">
+              <MappingFragment StoreEntitySet="MASTER">
+                <ScalarProperty Name="masterID" ColumnName="masterID" />
+                <ScalarProperty Name="teamID" ColumnName="teamID" />
+                <ScalarProperty Name="wstreamID" ColumnName="wstreamID" />
+                <ScalarProperty Name="categID" ColumnName="categID" />
+                <ScalarProperty Name="subcategID" ColumnName="subcategID" />
+                <ScalarProperty Name="agoalID" ColumnName="agoalID" />
+                <ScalarProperty Name="qonegoalID" ColumnName="qonegoalID" />
+                <ScalarProperty Name="qtwogoalID" ColumnName="qtwogoalID" />
+                <ScalarProperty Name="qthreegoalID" ColumnName="qthreegoalID" />
+                <ScalarProperty Name="qfourgoalID" ColumnName="qfourgoalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POSTs">
+            <EntityTypeMapping TypeName="masterwizardModel.POST">
+              <MappingFragment StoreEntitySet="POST">
+                <ScalarProperty Name="postID" ColumnName="postID" />
+                <ScalarProperty Name="postTitle" ColumnName="postTitle" />
+                <ScalarProperty Name="postContent" ColumnName="postContent" />
+                <ScalarProperty Name="createTime" ColumnName="createTime" />
+                <ScalarProperty Name="updateTime" ColumnName="updateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QfourGOALs">
+            <EntityTypeMapping TypeName="masterwizardModel.QfourGOAL">
+              <MappingFragment StoreEntitySet="QfourGOAL">
+                <ScalarProperty Name="qfourgoalID" ColumnName="qfourgoalID" />
+                <ScalarProperty Name="qfourgoalValue" ColumnName="qfourgoalValue" />
+                <ScalarProperty Name="qthreegoalID" ColumnName="qthreegoalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QoneGOALs">
+            <EntityTypeMapping TypeName="masterwizardModel.QoneGOAL">
+              <MappingFragment StoreEntitySet="QoneGOAL">
+                <ScalarProperty Name="qonegoalID" ColumnName="qonegoalID" />
+                <ScalarProperty Name="qonegoalValue" ColumnName="qonegoalValue" />
+                <ScalarProperty Name="agoalID" ColumnName="agoalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QthreeGOALs">
+            <EntityTypeMapping TypeName="masterwizardModel.QthreeGOAL">
+              <MappingFragment StoreEntitySet="QthreeGOAL">
+                <ScalarProperty Name="qthreegoalID" ColumnName="qthreegoalID" />
+                <ScalarProperty Name="qthreegoalValue" ColumnName="qthreegoalValue" />
+                <ScalarProperty Name="qtwogoalID" ColumnName="qtwogoalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QtwoGOALs">
+            <EntityTypeMapping TypeName="masterwizardModel.QtwoGOAL">
+              <MappingFragment StoreEntitySet="QtwoGOAL">
+                <ScalarProperty Name="qtwogoalID" ColumnName="qtwogoalID" />
+                <ScalarProperty Name="qtwogoalValue" ColumnName="qtwogoalValue" />
+                <ScalarProperty Name="qonegoalID" ColumnName="qonegoalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUBCATEGORies">
+            <EntityTypeMapping TypeName="masterwizardModel.SUBCATEGORY">
+              <MappingFragment StoreEntitySet="SUBCATEGORY">
+                <ScalarProperty Name="subcategID" ColumnName="subcategID" />
+                <ScalarProperty Name="subcategName" ColumnName="subcategName" />
+                <ScalarProperty Name="categID" ColumnName="categID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEAMs">
+            <EntityTypeMapping TypeName="masterwizardModel.TEAM">
+              <MappingFragment StoreEntitySet="TEAM">
+                <ScalarProperty Name="teamID" ColumnName="teamID" />
+                <ScalarProperty Name="teamName" ColumnName="teamName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WSTREAMs">
+            <EntityTypeMapping TypeName="masterwizardModel.WSTREAM">
+              <MappingFragment StoreEntitySet="WSTREAM">
+                <ScalarProperty Name="wstreamID" ColumnName="wstreamID" />
+                <ScalarProperty Name="wstreamName" ColumnName="wstreamName" />
+                <ScalarProperty Name="teamID" ColumnName="teamID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InsertInto" FunctionName="masterwizardModel.Store.InsertInto" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
