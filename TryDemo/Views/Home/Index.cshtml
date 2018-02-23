@@ -3,43 +3,37 @@
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
-   @if (ViewBag.teamL != null)
+   @using (Html.BeginForm("ChangeCategory", "Home", FormMethod.Post))
    {
-     @Html.DropDownListFor(i => i.Teams, ViewBag.teamL as SelectList, "-- Select A Team --", new { Teams = " teamID" })
+    <h3>Categories</h3>
+
+    @Html.HiddenFor(m => m.Teams)
+    @Html.HiddenFor(m => m.WStreams)
+
+    @Html.DropDownListFor(m => m.teamID,
+                        Model.Teams.Select(c => new SelectListItem
+                        {
+                            Text = c.teamName,
+                            Value = c.teamID.ToString(),
+                            Selected = c.teamID == Model.teamID
+                        }),
+                        new
+                        {
+                            onchange = @"form.submit();"
+                        })
+
+    <h3>Sub Categories Dropdown</h3>
+
+    @Html.DropDownListFor(m => m.wstreamID,
+                        Model.WStreams.Select(sc => new SelectListItem
+                        {
+                            Text = sc.wstreamName,
+                            Value = sc.wstreamID.ToString(),
+                            Selected = sc.wstreamID == Model.wstreamID
+                        }),
+                        new
+                        {
+                            onchange = @"form.submit();"
+                        })
    }
-     @Html.DropDownListFor(i => i.WStreams, new SelectList(" "), "-- Select A WorkStream --", new { WStreams = "wstreamID" })
 
-
-
-@*<script>
-    $(document).ready(function () {
-        $("#teamID").change(function () {
-            $.get("/Home/GetWStreamList", { teamID: $("#teamID").val() }, function (data) {
-                $("#wstreamID").empty();
-                $.each(data, function (index, row) {
-                    $("#wstreamID").append("<option value='" + row.wstreamID + "'>" + row.wstreamName + "</option>")
- 
-                }); // end each wstID
-            }); // end get GetWSTList
-        }) // end change teamID
-    }); // end ready doc
-
-</script>*@
-
-<script>
-    $(document).ready(function () {
-        $("#teamID").change(function () {
-            var teamId = $(this).val();
-
-            $.ajax({
-
-                type: "POST",
-                url: "/Home/GetWStreamList?teamID=" + teamId,
-                success: function (response) {
-                    $("#wstreamID").empty();
-                    $("#wstreamID").append(response);
-                } // end success
-            }) // end ajax 
-        }) // end teamID
-    }) // end doc
-</script>

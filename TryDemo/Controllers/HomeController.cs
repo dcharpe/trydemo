@@ -25,14 +25,10 @@ namespace TryDemo.Controllers
             //_subCategoryServices = new SubCategoryServices();
         }
 
-        public ActionResult About()
-        {
-            return View();
-        }
+       
         public ActionResult Index()
         {
             var teams = _teamServices.GetAllTeams();
-            ViewBag.teamL = new SelectList(teams, "teamID", "teamName");
             var wstreams = _wstreamServices.GetAllWStreams();
             var categories = _categoryServices.GetAllCategories();
             //var subCategories = _subCategoryServices.GetAllSubCategories();
@@ -48,26 +44,17 @@ namespace TryDemo.Controllers
             return View(model);
         }
 
-        public JsonResult GetWStreamList(int teamID)
+        public ActionResult About()
+        {
+            return View();
+        }
+        public JsonResult ChangeCategory(int teamID)
         {
             List<WSTREAM> wstreamList = _wstreamServices.GetWStreamsList(teamID);
-            ViewBag.wstream = new SelectList(wstreamList, "wstreamID", "wstreamName");
+           
             return Json(wstreamList, JsonRequestBehavior.AllowGet);
         }
 
-        //public JsonResult GetCategList(int wstreamID)
-        //{
-            
-        //    List<CATEGORY> categList = _categoryServices.GetCategoriesList(wstreamID);
-        //    return Json(categList, JsonRequestBehavior.AllowGet);
-        //}
-
-        //public JsonResult GetSubcategList(int categID)
-        //{
-            
-        //    List<SUBCATEGORY> subcategList = ;
-        //    return Json(subcategList, JsonRequestBehavior.AllowGet);
-        //}
-
+        
     }
 }
