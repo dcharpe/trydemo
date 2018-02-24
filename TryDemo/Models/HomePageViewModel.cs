@@ -10,6 +10,8 @@ namespace TryDemo.Models
         public IEnumerable<TEAM> ETeams { get; set; }
         public List<TEAM> Teams { get; set; }
         public int teamID { get; set; }
+        public string teamName { get; set; }
+
 
         public IEnumerable<WSTREAM> EWStreams { get; set; }
         public List<WSTREAM> WStreams { get; set; }

@@ -25,14 +25,38 @@ namespace TryDemo.Controllers
             //_subCategoryServices = new SubCategoryServices();
         }
 
-       
+
+        //public ActionResult Index()
+        //{
+        //    var teams = _teamServices.GetAllTeams();
+        //    var wstreams = _wstreamServices.GetAllWStreams();
+        //    var categories = _categoryServices.GetAllCategories();
+        //    //var subCategories = _subCategoryServices.GetAllSubCategories();
+
+        //    var model = new HomePageViewModel
+        //    {
+        //        Teams = teams,
+        //        WStreams = wstreams,
+        //        Categories = categories,
+        //        //Subcategories = subcategories
+        //    };
+
+        //    return View(model);
+        //}
+
         public ActionResult Index()
         {
             var teams = _teamServices.GetAllTeams();
             var wstreams = _wstreamServices.GetAllWStreams();
             var categories = _categoryServices.GetAllCategories();
-            //var subCategories = _subCategoryServices.GetAllSubCategories();
+            List<SelectListItem> tmNames = new List<SelectListItem>();
+            HomePageViewModel modal = new HomePageViewModel();
 
+            List<TEAM> teamList = _teamServices.GetAllTeams().ToList();
+            teamList.ForEach(x =>
+            {
+                tmNames.Add(new SelectListItem { Text = x.teamName, Value = x.teamID.ToString() });
+            });
             var model = new HomePageViewModel
             {
                 Teams = teams,
@@ -43,18 +67,30 @@ namespace TryDemo.Controllers
 
             return View(model);
         }
+        public ActionResult Changes(string teamID)
+        {
+
+            int wstreamsID;
+            List<SelectListItem> wsNames = new List<SelectListItem>();
+            if(!string.IsNullOrEmpty(teamID))
+            {
+                wstreamsID = Convert.ToInt32(teamID);
+                List<WSTREAM> wstreamList = _wstreamServices.GetWStreamsList(wstreamsID);
+                wstreamList.ForEach(x =>
+                {
+                    wsNames.Add(new SelectListItem { Text = x.wstreamName, Value = x.wstreamID.ToString() });
+                });
+            }
+
+          
+            return Json(wsNames, JsonRequestBehavior.AllowGet); ;
+        }
 
         public ActionResult About()
         {
             return View();
         }
-        public JsonResult ChangeCategory(int teamID)
-        {
-            List<WSTREAM> wstreamList = _wstreamServices.GetWStreamsList(teamID);
-           
-            return Json(wstreamList, JsonRequestBehavior.AllowGet);
-        }
-
         
+
     }
 }

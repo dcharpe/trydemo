@@ -3,7 +3,7 @@
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
-   @using (Html.BeginForm("ChangeCategory", "Home", FormMethod.Post))
+   @*@using (Html.BeginForm("Changes", "Home", FormMethod.Post))
    {
     <h3>Categories</h3>
 
@@ -35,5 +35,54 @@
                         {
                             onchange = @"form.submit();"
                         })
-   }
+   }*@
 
+<h2>Cascading Dropdownlist</h2>
+<table>
+    <tr>
+        <td>
+            <label>Team</label>
+        </td>
+        <td>
+            @Html.DropDownListFor(x => x.teamID, Model.Teams.Select(c => new SelectListItem
+       {
+           Text = c.teamName,
+           Value = c.teamID.ToString(),
+           Selected = c.teamID == Model.teamID
+       }), "--Select--", new { @id = "teamId" });
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>District</label>
+        </td>
+        <td id="Wstream">
+
+@Html.DropDownListFor(x => x.wstreamID, new List<SelectListItem>(), "--Select--", new { @id = "workSM" });
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#teamId').change(function () {
+            $.ajax({
+                type: "post",
+                url: "/Home/Changes",
+                data: { teamID: $('#teamId').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    var worksm = "<select id='workSM'>";
+                    worksm = worksm + '<option value="">--Select--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        worksm = worksm + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    }
+                    worksm = worksm + '</select>';
+                    $('#Wstream').html(worksm);
+                }
+            });
+        });
+    });
+</script>  
