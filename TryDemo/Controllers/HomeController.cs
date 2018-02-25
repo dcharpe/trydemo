@@ -16,7 +16,8 @@ namespace TryDemo.Controllers
         private readonly TeamsServices _teamServices;
         private readonly WStreamsServices _wstreamServices;
         private readonly CategoryServices _categoryServices;
-        //private readonly SubCategoryServices _subCategoryServices;
+        private readonly SubcategoryServices _subCategoryServices;
+        private readonly AGoalServices _agoalServices;
 
 
         public HomeController()
@@ -24,33 +25,17 @@ namespace TryDemo.Controllers
             _teamServices = new TeamsServices();
             _wstreamServices = new WStreamsServices();
             _categoryServices = new CategoryServices();
-            //_subCategoryServices = new SubCategoryServices();
+            _subCategoryServices = new SubcategoryServices();
+            _agoalServices = new AGoalServices();
         }
-
-
-        //public ActionResult Index()
-        //{
-        //    var teams = _teamServices.GetAllTeams();
-        //    var wstreams = _wstreamServices.GetAllWStreams();
-        //    var categories = _categoryServices.GetAllCategories();
-        //    //var subCategories = _subCategoryServices.GetAllSubCategories();
-
-        //    var model = new HomePageViewModel
-        //    {
-        //        Teams = teams,
-        //        WStreams = wstreams,
-        //        Categories = categories,
-        //        //Subcategories = subcategories
-        //    };
-
-        //    return View(model);
-        //}
 
         public ActionResult Index()
         {
             var teams = _teamServices.GetAllTeams();
             var wstreams = _wstreamServices.GetAllWStreams();
             var categories = _categoryServices.GetAllCategories();
+            var subcategories = _subCategoryServices.GetAllSubCategories();
+
             List<SelectListItem> tmNames = new List<SelectListItem>();
             HomePageViewModel modal = new HomePageViewModel();
 
@@ -72,7 +57,7 @@ namespace TryDemo.Controllers
                 Teams = teams,
                 WStreams = wstreams,
                 Categories = categories,
-                //Subcategories = subcategories
+                Subcategories = subcategories
             };
 
             return View(model);
@@ -137,17 +122,26 @@ namespace TryDemo.Controllers
                 case "wstreamID":
                     model.CATEGORIES = PopulateDropDown("SELECT categID, categName FROM CATEGORY WHERE wstreamID = " + value, "categName", "categID");
                     break;
+                case "categID":
+                    model.SUBCATEGORIES = PopulateDropDown("SELECT subcategID, subcategName FROM SUBCATEGORY WHERE categID = " + value, "subcategName", "subcategID");
+                    break;
+                case "subcategID":
+                    model.AGOALS = PopulateDropDown("SELECT agoalID, agoalValue FROM AGOAL WHERE subcategID = " + value, "agoalValue", "agoalID");
+                    break;
+
             }
             return Json(model);
         }
 
         [HttpPost]
-        public ActionResult Contact(int teamID, int wstreamID, int categID)
+        public ActionResult Contact(int teamID, int wstreamID, int categID, int subcategID)
         {
             CascadingModel model = new CascadingModel();
             model.TEAMS = PopulateDropDown("SELECT teamID, teamName FROM TEAM", "teamName", "teamID");
             model.WSTREAMS = PopulateDropDown("SELECT wstreamID, wstreamName FROM WSTREAM WHERE teamID = " + teamID, "wstreamName", "wstreamID");
             model.CATEGORIES = PopulateDropDown("SELECT categID, categName FROM CATEGORY WHERE wstreamID = " + wstreamID, "categName", "categID");
+            model.SUBCATEGORIES = PopulateDropDown("SELECT subcategID, subcategName FROM SUBCATEGORY WHERE categID = " + categID, "subcategName", "subcategID");
+            model.AGOALS = PopulateDropDown("SELECT agoalID, agoalValue FROM AGOAL WHERE subcategID = " + subcategID, "agoalValue", "agoalID");
             return View(model);
         }
 

@@ -10,6 +10,8 @@
 <body>
     @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
     {
+        <br />
+        <br />
         @Html.DropDownListFor(m => m.teamID, Model.TEAMS, "Please select")
         <br />
         <br />
@@ -19,6 +21,13 @@
         @Html.DropDownListFor(m => m.categID, Model.CATEGORIES, "Please select")
         <br />
         <br />
+        @Html.DropDownListFor(m => m.subcategID, Model.SUBCATEGORIES, "Please select")
+        <br />
+        <br />
+        @Html.DropDownListFor(m => m.agoalID, Model.AGOALS, "Please select")
+        <br />
+        <br />
+
         <input type="submit" value="Submit" />
     }
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -58,6 +67,19 @@
                                 DisableDropDown("#categID");
                                 PopulateDropDown("#categID", list);
                                 break;
+                            case "categID":
+                                dropDownId = "#subcategID";
+                                list = response.SUBCATEGORIES;
+                                DisableDropDown("#subcategID");
+                                PopulateDropDown("#subcategID", list);
+                                break;
+                            case "subcategID":
+                                dropDownId = "#agoalID";
+                                list = response.AGOALS;
+                                DisableDropDown("#agoalID");
+                                PopulateDropDown("#agoalID", list);
+                                break;
+                           
                         }
 
                     },
@@ -86,10 +108,14 @@
         }
 
         $(function () {
-            if ($("#teamID").val() != "" && $("#wstreamID").val() != "" && $("#categID").val() != "") {
+            if ($("#teamID").val() != "" && $("#wstreamID").val() != "" && $("#categID").val() != "" && $("#subcategID").val() != "" && $("#agoalID").val() != "")
+            {
                 var message = "Team: " + $("#teamID option:selected").text();
                 message += "\nWStream: " + $("#wstreamID option:selected").text();
                 message += "\nCategory: " + $("#categID option:selected").text();
+                message += "\nSubcategory: " + $("#subcategID option:selected").text();
+                message += "\nAnnual Goal: " + $("#agoalID option:selected").text();
+               
                 alert(message);
             }
         });

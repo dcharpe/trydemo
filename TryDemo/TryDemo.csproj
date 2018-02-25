@@ -205,7 +205,9 @@
       <DependentUpon>cyjDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AGoalServices.cs" />
     <Compile Include="Services\CategoryServices.cs" />
+    <Compile Include="Services\SubcategoryServices.cs" />
     <Compile Include="Services\TeamServices.cs" />
     <Compile Include="Services\WStreamsServices.cs" />
   </ItemGroup>
