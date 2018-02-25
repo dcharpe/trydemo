@@ -157,6 +157,7 @@
     <Compile Include="Models\AGOAL.cs">
       <DependentUpon>cyjDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CascadingModel.cs" />
     <Compile Include="Models\CATEGORY.cs">
       <DependentUpon>cyjDatabase.tt</DependentUpon>
     </Compile>
