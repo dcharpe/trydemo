@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using TryDemo.Models;
 using TryDemo.Services;
+using System.Data;
+using System.Text;
 
 namespace TryDemo.Controllers
 {
@@ -101,6 +103,41 @@ namespace TryDemo.Controllers
         public ActionResult About()
         {
             return View();
+        }
+
+        public static DataTable GetDatabaseSummary()
+        {
+            DataTable dt = new DataTable("GoalSummary");
+            //string query = "Select Vehicletype,str(count(Vehicletype)* 100.0 / (Select Count(*) From VehicleMaster), 5,1) as percentage ";
+            //query += "from VehicleMaster group by Vehicletype";
+            string query = "SELECT COUNT(*) FROM AGOAL";
+            string constr = ConfigurationManager.ConnectionStrings["Constring"].ConnectionString;
+            SqlConnection con = new SqlConnection();
+            //con.ConnectionString = "Data Source=.;" + "Initial Catalog=Transport;" + "Persist Security Info=True;";
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = query;
+            cmd.Connection = con;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            con.Open();
+            da.Fill(dt);
+            con.Close();
+            return dt;
+        }
+
+        [HttpGet]
+        public JsonResult GoalSummary()
+        {
+            List<ChartModel> lstSummary = new List<ChartModel>();
+
+            foreach (DataRow dr in GetDatabaseSummary().Rows)
+            {
+                ChartModel summary = new ChartModel();
+                summary.agoalID = Convert.ToInt32(dr[0]);
+                summary.agoalValue = Convert.ToInt32(dr[1]);
+                lstSummary.Add(summary);
+
+            }
+            return Json(lstSummary.ToList(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Contact()

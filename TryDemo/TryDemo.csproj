@@ -161,6 +161,7 @@
     <Compile Include="Models\CATEGORY.cs">
       <DependentUpon>cyjDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChartModel.cs" />
     <Compile Include="Models\cyjDatabase.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
